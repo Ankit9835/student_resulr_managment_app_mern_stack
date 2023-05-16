@@ -7,6 +7,11 @@ import Login from "./pages/employees/Login";
 import Home from "./pages/Home"
 import Register from "./pages/employees/Register";
 import { Toaster } from "react-hot-toast";
+import EmployeeHome from "./pages/employees/EmployeeHome";
+import ProtectectedRoute from "./components/ProtectectedRoute";
+import AddStudent from "./pages/employees/AddStudent";
+import Student from "./pages/employees/Student";
+import DefaultLayout from "./components/DefaultLayout";
 
 function App() {
   return (
@@ -26,6 +31,36 @@ function App() {
             path="/register"
             element={
                 <Register />
+            }
+          />
+
+          <Route
+            path="/employee"
+            element={
+               <ProtectectedRoute>
+                <EmployeeHome />
+               </ProtectectedRoute> 
+            }
+          />
+
+          <Route
+            path="/employee/students"
+            element={
+              <ProtectectedRoute>
+                <DefaultLayout>
+                <Student />
+                </DefaultLayout>
+              </ProtectectedRoute>
+            }
+          />
+          <Route
+            path="/employee/students/add"
+            element={
+              <ProtectectedRoute>
+                <DefaultLayout>
+                <AddStudent />
+                </DefaultLayout>
+              </ProtectectedRoute>
             }
           />
           
