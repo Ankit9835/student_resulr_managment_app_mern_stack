@@ -1,10 +1,30 @@
 import React from 'react'
 import { Col, Form, Row } from "antd";
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 const StudentForm = ({student,type}) => {
     
     const onFinish = async (value) => {
-
+        console.log('value',value)
+        try {
+          let token = localStorage.getItem('token')
+          const response = await axios.post('/api/students/create-students', value, {
+            headers:{
+              Authorization:`Bearer ${token}`
+            }
+          })
+          console.log('response',response)
+          if(response.data.status){
+            toast.success(response.data.message)
+          } 
+          if(response.data.status == false){
+            toast.error(response.data.message)
+          }
+        } catch (error) {
+          console.log(error)
+         // toast.error('something went wrong')
+        }
     }
 
   return (
